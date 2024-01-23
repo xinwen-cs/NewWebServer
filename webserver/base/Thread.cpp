@@ -3,6 +3,7 @@
 //
 
 #include <cassert>
+#include <sys/prctl.h>
 #include "Thread.h"
 #include "CurrentThread.h"
 
@@ -26,7 +27,7 @@ struct ThreadData {
 
         CurrentThread::t_threadName = name_.empty() ? "Thread" : name_.c_str();
         #ifdef LINUX
-            ::prctl(PR_SET_NAME, muduo::CurrentThread::t_threadName);
+            ::prctl(PR_SET_NAME, CurrentThread::t_threadName);
         #endif
 
         func_();

@@ -7,6 +7,7 @@
 
 #include "FileUtil.h"
 #include "Mutex.h"
+#include <memory>
 
 #include <string>
 
