@@ -14,3 +14,6 @@ target_link_libraries(logfile_test libserver_base)
 
 add_executable(thread_test Thread_test.cpp)
 target_link_libraries(thread_test libserver_base)
+
+add_executable(logging_test logging_test.cpp)
+target_link_libraries(logging_test libserver_base)

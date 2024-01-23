@@ -33,7 +33,7 @@ public:
         pthread_cond_broadcast(&cond);
     }
 
-    bool waitForSecond(int seconds) {
+    bool waitForSeconds(int seconds) {
         struct timespec abstime;
         clock_gettime(CLOCK_REALTIME, &abstime);
         abstime.tv_sec += static_cast<time_t>(seconds);

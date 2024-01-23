@@ -16,12 +16,12 @@ LogFile::LogFile(const std::string& basename, int flushFreq) :
 LogFile::~LogFile() {}
 
 void LogFile::append(const char* logline, size_t len) {
-    MutexGuard lock(*mutex_);
+    MutexLockGuard lock(*mutex_);
     append_unlocked(logline, len);
 }
 
 void LogFile::flush() {
-    MutexGuard lock(*mutex_);
+    MutexLockGuard lock(*mutex_);
     file_->flush();
 }
 

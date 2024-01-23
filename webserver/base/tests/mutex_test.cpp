@@ -9,8 +9,8 @@
 int main() {
     printf("sizeof pthread_mutex_t: %zd\n", sizeof(pthread_mutex_t));
     printf("sizeof Mutex: %zd\n", sizeof(MutexLock));
-    printf("sizeof Mutex: %zd\n", sizeof(MutexGuard));
+    printf("sizeof Mutex: %zd\n", sizeof(MutexLockGuard));
     MutexLock mutexLock;
-    MutexGuard mutexGuard(mutexLock);
+    MutexLockGuard mutexGuard(mutexLock);
     return 0;
 }

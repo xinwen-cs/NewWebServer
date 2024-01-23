@@ -7,14 +7,14 @@
 CountDownLatch::CountDownLatch(int count) : mutex(), condition(mutex), count(count) {}
 
 void CountDownLatch::wait() {
-    MutexGuard lock(mutex);
+    MutexLockGuard lock(mutex);
     while (count > 0) {
         condition.wait();
     }
 }
 
 void CountDownLatch::countDown() {
-    MutexGuard lock(mutex);
+    MutexLockGuard lock(mutex);
     --count;
     if (count == 0) {
         condition.notifyAll();
