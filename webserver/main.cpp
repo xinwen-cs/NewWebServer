@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "base/Thread.h"
+#include "Util.h"
 
 int main() {
     Thread([]() {}, "NewThread");
