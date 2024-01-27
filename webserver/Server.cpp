@@ -8,6 +8,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include "HttpData.h"
 
 
 Server::Server(EventLoop *loop, int threadNum, int port)
@@ -63,10 +64,10 @@ void Server::handNewConn() {
         setSocketNoDelay(accept_fd);
 
         EventLoop* loop = eventLoopThreadPool_->getNextLoop();
-        // TODO
-//        std::shared_ptr<HttpData> req_info(new HttpData(loop, accept_fd));
-//        req_info->getChannel()->setHolder(req_info);
-//        loop->queueInLoop(std::bind(&HttpData::newEvent, req_info));
+
+        std::shared_ptr<HttpData> req_info(new HttpData(loop, accept_fd));
+        req_info->getChannel()->setHolder(req_info);
+        loop->queueInLoop(std::bind(&HttpData::newEvent, req_info));
     }
     acceptChannel_->setEvents(EPOLLIN | EPOLLET);
 }
