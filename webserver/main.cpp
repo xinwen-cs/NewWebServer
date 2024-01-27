@@ -1,11 +1,9 @@
 #include <iostream>
 
-#include "base/Thread.h"
-#include "Util.h"
-#include "Channel.h"
+#include "EventLoop.h"
 
 int main() {
-    Thread([]() {}, "NewThread");
-    std::cout << "Hello, World!" << std::endl;
+    EventLoop* loop = new EventLoop();
+    loop->loop();
     return 0;
 }

@@ -5,7 +5,7 @@ set(LIB_SRC
         Mutex.h LogFile.cpp LogFile.h
         Condition.h
         CountDownLatch.cpp CountDownLatch.h
-        CurrentThread.h
+        CurrentThread.cpp CurrentThread.h
         AsyncLogging.cpp AsyncLogging.h
         FixedBuffer.h
         LogStream.cpp LogStream.h
