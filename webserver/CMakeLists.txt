@@ -1,7 +1,8 @@
 set(SRCS
         main.cpp
         Epoll.cpp Epoll.h
-        Util.cpp Util.h)
+        Util.cpp Util.h
+        Channel.cpp Channel.h)
 include_directories(${PROJECT_SOURCE_DIR}/base)
 
 add_executable(tinywebserver ${SRCS})
