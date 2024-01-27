@@ -59,7 +59,7 @@ private:
     std::vector<Functor> pendingFunctors_;
     bool callingPendingFunctors_;
     const pid_t threadId_;
-    std::shared_ptr<Channel> pwakeupChannel_;
+    std::shared_ptr<Channel> wakeupChannel_;
 
     void wakeup();
     void handleConn();

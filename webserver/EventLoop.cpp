@@ -28,17 +28,17 @@ EventLoop::EventLoop() :
     quit_(false),
     callingPendingFunctors_(false),
     threadId_(CurrentThread::tid()),
-    pwakeupChannel_(new Channel(this, wakeupFd_)) {
+    wakeupChannel_(new Channel(this, wakeupFd_)) {
     if (t_loopInThisThread) {
          LOG << "Another EventLoop " << t_loopInThisThread << " exists in this thread " << threadId_;
     } else {
         t_loopInThisThread = this;
     }
 
-    pwakeupChannel_->setEvents(EPOLLIN | EPOLLET);
-    pwakeupChannel_->setReadHandler(std::bind(&EventLoop::handleRead, this));
-    pwakeupChannel_->setConnHandler(std::bind(&EventLoop::handleConn, this));
-    poller_->epoll_add(pwakeupChannel_, 0);
+    wakeupChannel_->setEvents(EPOLLIN | EPOLLET);
+    wakeupChannel_->setReadHandler(std::bind(&EventLoop::handleRead, this));
+    wakeupChannel_->setConnHandler(std::bind(&EventLoop::handleConn, this));
+    poller_->epoll_add(wakeupChannel_, 0);
 }
 
 EventLoop::~EventLoop() {
@@ -55,7 +55,7 @@ void EventLoop::wakeup() {
 }
 
 void EventLoop::handleConn() {
-    updatePoller(pwakeupChannel_, 0);
+    updatePoller(wakeupChannel_, 0);
 }
 
 void EventLoop::handleRead() {
@@ -64,7 +64,7 @@ void EventLoop::handleRead() {
     if (n != sizeof one) {
         LOG << "EventLoop::handleRead() reads " << n << " bytes instead of 8";
     }
-    pwakeupChannel_->setEvents(EPOLLIN | EPOLLET);
+    wakeupChannel_->setEvents(EPOLLIN | EPOLLET);
 }
 
 void EventLoop::runInLoop(EventLoop::Functor &&cb) {
