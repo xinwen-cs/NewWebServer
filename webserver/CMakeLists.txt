@@ -4,7 +4,9 @@ set(SRCS
         Util.cpp Util.h
         Channel.cpp Channel.h
         EventLoop.cpp EventLoop.h
-        EventLoopThread.cpp EventLoopThread.h EventLoopThreadPool.cpp EventLoopThreadPool.h)
+        EventLoopThread.cpp EventLoopThread.h
+        EventLoopThreadPool.cpp EventLoopThreadPool.h
+        Server.cpp Server.h)
 include_directories(${PROJECT_SOURCE_DIR}/base)
 
 add_executable(tinywebserver ${SRCS})
