@@ -28,7 +28,7 @@ EventLoop::EventLoop() :
     quit_(false),
     callingPendingFunctors_(false),
     threadId_(CurrentThread::tid()),
-    wakeupChannel_(new Channel(this, wakeupFd_)) {
+    wakeupChannel_(new Channel(wakeupFd_)) {
     if (t_loopInThisThread) {
          LOG << "Another EventLoop " << t_loopInThisThread << " exists in this thread " << threadId_;
     } else {

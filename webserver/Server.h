@@ -23,15 +23,13 @@ public:
 private:
     EventLoop* loop_;
     int threadNum_;
-
     std::unique_ptr<EventLoopThreadPool> eventLoopThreadPool_;
 
     bool started_;
-
-    std::shared_ptr<Channel> acceptChannel_;
-
     int port_;
     int listenFd_;
+
+    std::shared_ptr<Channel> acceptChannel_;
 
     static const int MAXFDS = 100000;
 };

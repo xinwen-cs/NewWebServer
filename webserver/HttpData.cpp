@@ -116,7 +116,7 @@ std::string MimeType::getMime(const std::string &suffix) {
 
 HttpData::HttpData(EventLoop *loop, int connfd)
         : loop_(loop),
-          channel_(new Channel(loop, connfd)),
+          channel_(new Channel(connfd)),
           fd_(connfd),
           error_(false),
           connectionState_(H_CONNECTED),

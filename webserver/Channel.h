@@ -16,8 +16,7 @@ class Channel {
     using Callback = std::function<void()>;
 
 public:
-    explicit Channel(EventLoop* loop);
-    Channel(EventLoop* loop, int fd);
+    Channel(int fd);
 
     ~Channel() = default;
 
@@ -93,9 +92,6 @@ private:
     Callback writeHandler;
     Callback errorHandler;
     Callback connHandler;
-
-    // FIXME
-    EventLoop* loop;
 
     int fd;
 

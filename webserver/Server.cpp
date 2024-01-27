@@ -16,10 +16,9 @@ Server::Server(EventLoop *loop, int threadNum, int port)
           threadNum_(threadNum),
           eventLoopThreadPool_(new EventLoopThreadPool(loop_, threadNum)),
           started_(false),
-          acceptChannel_(new Channel(loop_)),
           port_(port),
-          listenFd_(socket_bind_listen(port_)) {
-    acceptChannel_->setFd(listenFd_);
+          listenFd_(socket_bind_listen(port_)),
+          acceptChannel_(new Channel(listenFd_)) {
     handle_for_sigpipe();
     if (setSocketNonBlocking(listenFd_) < 0) {
         perror("set socket non block failed");

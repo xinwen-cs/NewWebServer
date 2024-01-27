@@ -4,11 +4,9 @@
 
 #include "Channel.h"
 
-Channel::Channel(EventLoop *loop)
-        : loop(loop), fd(0), events_(0), lastEvents_(0) {}
 
-Channel::Channel(EventLoop *loop, int fd)
-        : loop(loop), fd(fd), events_(0), lastEvents_(0) {}
+Channel::Channel(int fd)
+        : fd(fd), events_(0), lastEvents_(0) {}
 
 int Channel::getFd() {
     return fd;
