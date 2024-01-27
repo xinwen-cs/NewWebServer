@@ -6,8 +6,9 @@
 #define TINYWEBSERVER_EVENTLOOPTHREAD_H
 
 #include "EventLoop.h"
+#include "base/noncopyable.h"
 
-class EventLoopThread {
+class EventLoopThread : noncopyable {
 public:
     EventLoopThread();
     ~EventLoopThread();
