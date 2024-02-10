@@ -47,9 +47,9 @@ ssize_t readn(int fd, std::string &inBuffer, bool &zero) {
     while (true) {
         char buff[MAX_BUFF];
         if ((nread = read(fd, buff, MAX_BUFF)) < 0) {
-            if (errno == EINTR)
+            if (errno == EINTR) {
                 continue;
-            else if (errno == EAGAIN) {
+            } else if (errno == EAGAIN) {
                 return readSum;
             } else {
                 perror("read error");
