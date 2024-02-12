@@ -268,7 +268,9 @@ void HttpData::handleConn() {
     if (!error_ && connectionState_ == H_CONNECTED) {
         if (events_ != 0) {
             int timeout = DEFAULT_EXPIRED_TIME;
-            if (keepAlive_) timeout = DEFAULT_KEEP_ALIVE_TIME;
+            if (keepAlive_) {
+                timeout = DEFAULT_KEEP_ALIVE_TIME;
+            }
             if ((events_ & EPOLLIN) && (events_ & EPOLLOUT)) {
                 events_ = __uint32_t(0);
                 events_ |= EPOLLOUT;
@@ -281,8 +283,8 @@ void HttpData::handleConn() {
             loop_->updatePoller(channel_, timeout);
         } else {
             // 短连接
-             loop_->shutdown(channel_);
-             loop_->runInLoop(std::bind(&HttpData::handleClose, shared_from_this()));
+            loop_->shutdown(channel_);
+            loop_->runInLoop(std::bind(&HttpData::handleClose, shared_from_this()));
         }
     } else if (!error_ && connectionState_ == H_DISCONNECTING && (events_ & EPOLLOUT)) {
         events_ = (EPOLLOUT | EPOLLET);

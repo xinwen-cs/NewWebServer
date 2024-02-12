@@ -83,7 +83,6 @@ class HttpData : public std::enable_shared_from_this<HttpData> {
 public:
     HttpData(EventLoop *loop, int connfd);
     ~HttpData() {
-        //LOG << "close fd: " << fd_ << "\n";
         close(fd_);
     }
 

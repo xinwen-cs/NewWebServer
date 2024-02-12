@@ -7,6 +7,7 @@
 
 #include <sys/time.h>
 #include <unistd.h>
+#include "base/Logging.h"
 
 
 TimerNode::TimerNode(std::shared_ptr<HttpData> requestData, int timeout)
@@ -19,7 +20,9 @@ TimerNode::TimerNode(std::shared_ptr<HttpData> requestData, int timeout)
 }
 
 TimerNode::~TimerNode() {
-    if (SPHttpData) SPHttpData->handleClose();
+    if (SPHttpData) {
+        SPHttpData->handleClose();
+    }
 }
 
 TimerNode::TimerNode(TimerNode &tn)
