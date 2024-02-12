@@ -11,6 +11,10 @@ set(SRCS
         Timer.cpp Timer.h)
 include_directories(${PROJECT_SOURCE_DIR}/base)
 
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    add_definitions(-DDEBUG)
+endif()
+
 add_executable(tinywebserver ${SRCS})
 target_link_libraries(tinywebserver libserver_base)
 

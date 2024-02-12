@@ -48,7 +48,9 @@ void Server::handNewConn() {
     int accept_fd = 0;
 
     while ((accept_fd = accept(listenFd_, (struct sockaddr *) &client_addr, &client_addr_len)) > 0) {
-        LOG << "New connection from " << inet_ntoa(client_addr.sin_addr) << ": " << ntohs(client_addr.sin_port);
+        #ifdef DEBUG
+            LOG << "New connection from " << inet_ntoa(client_addr.sin_addr) << ": " << ntohs(client_addr.sin_port);
+        #endif
 
         if (accept_fd >= MAXFDS) {
             close(accept_fd);
