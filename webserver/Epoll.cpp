@@ -69,9 +69,8 @@ void Epoll::epoll_del(shared_channel_ptr request) {
     fd2http_[fd].reset();
 }
 
-// TODO
 void Epoll::handleExpired() {
-
+    timerManager_.handleExpiredEvent();
 }
 
 std::vector<shared_channel_ptr> Epoll::poll() {
@@ -107,9 +106,10 @@ std::vector<shared_channel_ptr> Epoll::getEventsRequest(int events_num) {
 }
 
 void Epoll::add_timer(shared_channel_ptr request_data, int timeout) {
-//    shared_ptr<HttpData> t = request_data->getHolder();
-//    if (t)
-//        timerManager_.addTimer(t, timeout);
-//    else
-//        LOG << "timer add fail";
+    std::shared_ptr<HttpData> t = request_data->getHolder();
+    if (t) {
+        timerManager_.addTimer(t, timeout);
+    } else {
+        LOG << "Add timer fail";
+    }
 }

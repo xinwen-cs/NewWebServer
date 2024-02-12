@@ -7,7 +7,8 @@ set(SRCS
         EventLoopThread.cpp EventLoopThread.h
         EventLoopThreadPool.cpp EventLoopThreadPool.h
         Server.cpp Server.h
-        HttpData.cpp HttpData.h)
+        HttpData.cpp HttpData.h
+        Timer.cpp Timer.h)
 include_directories(${PROJECT_SOURCE_DIR}/base)
 
 add_executable(tinywebserver ${SRCS})

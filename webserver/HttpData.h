@@ -18,7 +18,7 @@
 
 
 class EventLoop;
-//class TimerNode;
+class TimerNode;
 class Channel;
 
 enum ProcessState {
@@ -89,14 +89,11 @@ public:
 
     void reset();
 
-
-
-//    void seperateTimer();
-//    void linkTimer(std::shared_ptr<TimerNode> mtimer) {
-//        // shared_ptr重载了bool, 但weak_ptr没有
-//        timer_ = mtimer;
-//    }
-
+    void seperateTimer();
+    void linkTimer(std::shared_ptr<TimerNode> mtimer) {
+        // shared_ptr重载了bool, 但weak_ptr没有
+        timer_ = mtimer;
+    }
 
     std::shared_ptr<Channel> getChannel() { return channel_; }
     EventLoop *getLoop() { return loop_; }
@@ -123,7 +120,7 @@ private:
     ParseState hState_;
     bool keepAlive_;
     std::map<std::string, std::string> headers_;
-//    std::weak_ptr<TimerNode> timer_;
+    std::weak_ptr<TimerNode> timer_;
 
 
 

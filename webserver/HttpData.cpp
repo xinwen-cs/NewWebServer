@@ -11,7 +11,7 @@
 #include "Channel.h"
 #include "EventLoop.h"
 #include "Util.h"
-//#include "time.h"
+#include "time.h"
 
 
 pthread_once_t MimeType::once_control = PTHREAD_ONCE_INIT;
@@ -129,7 +129,6 @@ HttpData::HttpData(EventLoop *loop, int connfd)
 }
 
 void HttpData::reset() {
-    // inBuffer_.clear();
     fileName_.clear();
     path_.clear();
     nowReadPos_ = 0;
@@ -137,21 +136,16 @@ void HttpData::reset() {
     hState_ = H_START;
     headers_.clear();
     // keepAlive_ = false;
-//    if (timer_.lock()) {
-//        shared_ptr<TimerNode> my_timer(timer_.lock());
-//        my_timer->clearReq();
-//        timer_.reset();
-//    }
+    seperateTimer();
 }
 
-//void HttpData::seperateTimer() {
-//    // cout << "seperateTimer" << endl;
-//    if (timer_.lock()) {
-//        shared_ptr<TimerNode> my_timer(timer_.lock());
-//        my_timer->clearReq();
-//        timer_.reset();
-//    }
-//}
+void HttpData::seperateTimer() {
+    if (timer_.lock()) {
+        std::shared_ptr<TimerNode> my_timer(timer_.lock());
+        my_timer->clearReq();
+        timer_.reset();
+    }
+}
 
 void HttpData::handleRead() {
     __uint32_t &events_ = channel_->getEvents();
@@ -245,15 +239,10 @@ void HttpData::handleRead() {
         if (!error_ && state_ == STATE_FINISH) {
             this->reset();
             if (!inBuffer_.empty()) {
-                if (connectionState_ != H_DISCONNECTING) handleRead();
+                if (connectionState_ != H_DISCONNECTING) {
+                    handleRead();
+                }
             }
-
-            // if ((keepAlive_ || inBuffer_.size() > 0) && connectionState_ ==
-            // H_CONNECTED)
-            // {
-            //     this->reset();
-            //     events_ |= EPOLLIN;
-            // }
         } else if (!error_ && connectionState_ != H_DISCONNECTED) {
             events_ |= EPOLLIN;
         }
@@ -274,7 +263,7 @@ void HttpData::handleWrite() {
 }
 
 void HttpData::handleConn() {
-//    seperateTimer();
+    seperateTimer();
     __uint32_t &events_ = channel_->getEvents();
     if (!error_ && connectionState_ == H_CONNECTED) {
         if (events_ != 0) {

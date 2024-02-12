@@ -64,7 +64,7 @@ void Server::handNewConn() {
 
         EventLoop* loop = eventLoopThreadPool_->getNextLoop();
 
-        std::shared_ptr<HttpData> httpData(new HttpData(loop, accept_fd));
+        auto httpData = std::make_shared<HttpData>(loop, accept_fd);
         httpData->getChannel()->setHolder(httpData);
         loop->queueInLoop(std::bind(&HttpData::newEvent, httpData));
     }

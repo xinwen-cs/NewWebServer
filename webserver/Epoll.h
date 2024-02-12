@@ -9,6 +9,7 @@
 #include <memory>
 
 #include "Channel.h"
+#include "Timer.h"
 
 
 class Epoll {
@@ -33,7 +34,7 @@ private:
     std::vector<epoll_event> events_;
     std::shared_ptr<Channel> fd2chan_[MAXFDS];
     std::shared_ptr<HttpData> fd2http_[MAXFDS];
-//    TimerManager timerManager_;
+    TimerManager timerManager_;
 };
 
 
