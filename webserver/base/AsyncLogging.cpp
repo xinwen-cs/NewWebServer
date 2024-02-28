@@ -27,14 +27,12 @@ void AsyncLogging::append(const char *logline, size_t len) {
     MutexLockGuard lock(mutex_);
     if (currentBuffer_->avail() > len) {
         currentBuffer_->append(logline, len);
-    }
-    else {
+    } else {
         buffers_.push_back(currentBuffer_);
         currentBuffer_.reset();
         if (nextBuffer_) {
             currentBuffer_ = std::move(nextBuffer_);
-        }
-        else {
+        } else {
             // Rarely happens
             currentBuffer_.reset(new Buffer);
         }

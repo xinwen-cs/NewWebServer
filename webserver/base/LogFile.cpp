@@ -9,7 +9,7 @@ LogFile::LogFile(const std::string& basename, int flushFreq) :
     flushFreq_(flushFreq),
     count_(0),
     mutex_(new MutexLock),
-    file_(std::make_unique<AppendFile>(basename)){
+    file_(std::make_unique<AppendFile>(basename)) {
 
 }
 

@@ -105,10 +105,12 @@ void MimeType::init() {
 
 std::string MimeType::getMime(const std::string &suffix) {
     pthread_once(&once_control, MimeType::init);
-    if (mime.find(suffix) == mime.end())
+    if (mime.find(suffix) == mime.end()) {
         return mime["default"];
-    else
+    }
+    else {
         return mime[suffix];
+    }
 }
 
 HttpData::HttpData(EventLoop *loop, int connfd)
